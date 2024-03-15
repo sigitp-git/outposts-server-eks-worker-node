@@ -1,0 +1,81 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CFN template for Outposts server as EKS worker nodes'
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: keypair
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  InstanceType:
+    Description: Worker node EC2 instance type
+    Type: String
+    Default: c6id.32xlarge
+    AllowedValues:
+    - c6id.32xlarge
+    - c6id.16xlarge
+    - c6id.8xlarge
+    - t3.large
+    ConstraintDescription: must be a valid EC2 instance type for Outposts server.
+  ImageId:
+    Description: AMI ID of the EKS worker node
+    Type: String
+    Default: ami-05e1e07dbcf5e8866
+    ConstraintDescription: must be valid AMI ID in the selected AWS Region.
+  SecurityGroupId:
+    Description: Security Group ID of the EKS worker node
+    Type: AWS::EC2::SecurityGroup::Id
+    Default: sg-0d504267a1a2f84f3
+    ConstraintDescription: must be valid Security Group ID in the selected AWS Region.
+  SubnetId:
+    Description: Outposts server subnet ID of the EKS worker node
+    Type: AWS::EC2::Subnet::Id
+    Default: subnet-0f2dee0d23c59f2e3
+    ConstraintDescription: must be valid Outposts server subnet ID in the selected AWS Region.
+Resources:
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType:
+        Ref: InstanceType
+      SecurityGroupIds:
+        - Ref: SecurityGroupId
+      SubnetId:
+        Ref: SubnetId
+      KeyName:
+        Ref: KeyName
+      ImageId:
+        Ref: ImageId
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -o xtrace
+          /etc/eks/bootstrap.sh 5GC-Telco-Outposts-Cluster --apiserver-endpoint https://blablabla.yl4.us-east-1.eks.amazonaws.com --b64-cluster-ca YOYOYO --container-runtime containerd
+      Tags:
+        - Key: Name
+          Value: "Cluster-Node-1"
+        - Key: kubernetes.io/cluster/EKS-Cluster-Name
+          Value: "owned"
+Outputs:
+  InstanceId:
+    Description: InstanceId of the newly created EC2 instance
+    Value:
+      Ref: EC2Instance
+  AZ:
+    Description: Availability Zone of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance
+      - AvailabilityZone
+  PublicDNS:
+    Description: Public DNSName of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance
+      - PublicDnsName
+  PublicIP:
+    Description: Public IP address of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance
+      - PublicIp
