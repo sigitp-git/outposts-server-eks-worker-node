@@ -1,0 +1,194 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CFN template for Outposts server as EKS worker nodes - multi node'
+Resources:
+  EC2Instance1:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType:
+        c6id.32xlarge
+      SecurityGroupIds:
+        - sg-0d5adfasfsadfsadf
+      SubnetId:
+        subnet-0f2dadfasdfsadfsadf
+      KeyName:
+        keypair-name
+      ImageId:
+        ami-05e1e07dbcf5e8866
+      IamInstanceProfile:
+        AmazonEKSNodeInstanceProfile
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -o xtrace
+          /etc/eks/bootstrap.sh EKS-Cluster-Name --apiserver-endpoint https://ADFASDFASDFASDFASDFSADF0090999.yl4.us-east-1.eks.amazonaws.com --b64-cluster-ca HKLKLKLKDfasdfasdfasdfdsadsU3h094350984350928345dAdsfadsfasdfsadfhMokokllmnjksfksflsfdspOGhvalJyQlMyanAzQ0duUnWertsdvsdtsdgsdgfs --container-runtime containerd
+      Tags:
+        - Key: Name
+          Value: "Cluster-Node-1"
+        - Key: kubernetes.io/cluster/EKS-Cluster-Name
+          Value: "owned"
+  EC2Instance2:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType:
+        c6id.32xlarge
+      SecurityGroupIds:
+        - sg-0d5adfasfsadfsadf
+      SubnetId:
+        subnet-093240981234089
+      KeyName:
+        keypair-name
+      ImageId:
+        ami-05e1e07dbcf5e8866
+      IamInstanceProfile:
+        AmazonEKSNodeInstanceProfile
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -o xtrace
+          /etc/eks/bootstrap.sh EKS-Cluster-Name --apiserver-endpoint https://ADFASDFASDFASDFASDFSADF0090999.yl4.us-east-1.eks.amazonaws.com --b64-cluster-ca HKLKLKLKDfasdfasdfasdfdsadsU3h094350984350928345dAdsfadsfasdfsadfhMokokllmnjksfksflsfdspOGhvalJyQlMyanAzQ0duUnWertsdvsdtsdgsdgfs --container-runtime containerd
+      Tags:
+        - Key: Name
+          Value: "Cluster-Node-2"
+        - Key: kubernetes.io/cluster/EKS-Cluster-Name
+          Value: "owned"
+  EC2Instance3:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType:
+        c6id.32xlarge
+      SecurityGroupIds:
+        - sg-0d5adfasfsadfsadf
+      SubnetId:
+        subnet-2342352345
+      KeyName:
+        keypair-name
+      ImageId:
+        ami-05e1e07dbcf5e8866
+      IamInstanceProfile:
+        AmazonEKSNodeInstanceProfile
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -o xtrace
+          /etc/eks/bootstrap.sh EKS-Cluster-Name --apiserver-endpoint https://ADFASDFASDFASDFASDFSADF0090999.yl4.us-east-1.eks.amazonaws.com --b64-cluster-ca HKLKLKLKDfasdfasdfasdfdsadsU3h094350984350928345dAdsfadsfasdfsadfhMokokllmnjksfksflsfdspOGhvalJyQlMyanAzQ0duUnWertsdvsdtsdgsdgfs --container-runtime containerd
+      Tags:
+        - Key: Name
+          Value: "Cluster-Node-3"
+        - Key: kubernetes.io/cluster/EKS-Cluster-Name
+          Value: "owned"
+  EC2Instance4:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType:
+        c6id.32xlarge
+      SecurityGroupIds:
+        - sg-0d5adfasfsadfsadf
+      SubnetId:
+        subnet-aq34q23423
+      KeyName:
+        keypair-name
+      ImageId:
+        ami-05e1e07dbcf5e8866
+      IamInstanceProfile:
+        AmazonEKSNodeInstanceProfile
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -o xtrace
+          /etc/eks/bootstrap.sh EKS-Cluster-Name --apiserver-endpoint https://ADFASDFASDFASDFASDFSADF0090999.yl4.us-east-1.eks.amazonaws.com --b64-cluster-ca HKLKLKLKDfasdfasdfasdfdsadsU3h094350984350928345dAdsfadsfasdfsadfhMokokllmnjksfksflsfdspOGhvalJyQlMyanAzQ0duUnWertsdvsdtsdgsdgfs --container-runtime containerd
+      Tags:
+        - Key: Name
+          Value: "Cluster-Node-4"
+        - Key: kubernetes.io/cluster/EKS-Cluster-Name
+          Value: "owned"
+Outputs:
+  InstanceId1:
+    Description: InstanceId of the newly created EC2 instance
+    Value:
+      Ref: EC2Instance1
+  AZ1:
+    Description: Availability Zone of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance1
+      - AvailabilityZone
+  PublicDNS1:
+    Description: Public DNSName of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance1
+      - PublicDnsName
+  PublicIP1:
+    Description: Public IP address of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance1
+      - PublicIp
+  InstanceId2:
+    Description: InstanceId of the newly created EC2 instance
+    Value:
+      Ref: EC2Instance2
+  AZ2:
+    Description: Availability Zone of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance2
+      - AvailabilityZone
+  PublicDNS2:
+    Description: Public DNSName of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance2
+      - PublicDnsName
+  PublicIP2:
+    Description: Public IP address of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance2
+      - PublicIp
+  InstanceId3:
+    Description: InstanceId of the newly created EC2 instance
+    Value:
+      Ref: EC2Instance3
+  AZ3:
+    Description: Availability Zone of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance3
+      - AvailabilityZone
+  PublicDNS3:
+    Description: Public DNSName of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance3
+      - PublicDnsName
+  PublicIP3:
+    Description: Public IP address of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance3
+      - PublicIp
+  InstanceId4:
+    Description: InstanceId of the newly created EC2 instance
+    Value:
+      Ref: EC2Instance4
+  AZ4:
+    Description: Availability Zone of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance4
+      - AvailabilityZone
+  PublicDNS4:
+    Description: Public DNSName of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance4
+      - PublicDnsName
+  PublicIP4:
+    Description: Public IP address of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance4
+      - PublicIp
+
