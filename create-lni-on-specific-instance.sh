@@ -7,6 +7,9 @@ Created ENI eni-0ebd88b685wkwkwkwwk
 Enabling delete-on-termination
 Finished creating LNI at device index 14
 ENI Attachment ID = eni-attach-0d80b7342wkwkwkwkwk
+
+MULTI-LNI: [8 LNIs]
+[cloudshell-user@host ~]$ for i in {0..7}; do DEVICE_INDEX=$((14-$i)) INSTANCE_ID=i-0536954ab277adfadfadsf ./create-lni.sh; done
 '
 
 #!/bin/sh
