@@ -1,11 +1,11 @@
 :'
 USSAGE:
-[cloudshell-user@host ~]$ DEVICE_INDEX=$14 ./create-lni.sh
+[cloudshell-user@host ~]$ DEVICE_INDEX=14 ./create-lni.sh
 Creating LNI on instance i-0536954ab277adfadfadsf
 Subnet = subnet-0f2dee0d23c5wkwkwkw
 Created ENI eni-0ebd88b685wkwkwkwwk
 Enabling delete-on-termination
-Finished creating LNI at device index 4
+Finished creating LNI at device index 14
 ENI Attachment ID = eni-attach-0d80b7342wkwkwkwkwk
 '
 
