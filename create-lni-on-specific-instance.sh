@@ -27,7 +27,7 @@ echo "Creating LNI on instance $INSTANCE_ID"
 
 echo Subnet = "$SUBNET_ID"
 
-TAGS='ResourceType=network-interface,Tags=[{Key=Name,Value=LNI '$INSTANCE_ID'},{Key=node.k8s.amazonaws.com/no_manage,Value=true}]'
+TAGS='ResourceType=network-interface,Tags=[{Key=Name,Value=LNI index '$DEVICE_INDEX' instance '$INSTANCE_ID'},{Key=node.k8s.amazonaws.com/no_manage,Value=true}]'
 
 TMP_JSON=$(aws ec2 \
         --output json \
