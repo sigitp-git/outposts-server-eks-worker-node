@@ -1,4 +1,3 @@
-[cloudshell-user@ip-10-130-69-226 ~]$ cat create-lni.sh 
 #!/bin/sh
 
 set -e
@@ -54,4 +53,3 @@ aws ec2 modify-network-interface-attribute \
 echo "Finished creating LNI at device index $DEVICE_INDEX"
 
 echo "ENI Attachment ID = $ENI_ATTACH_ID"
-[cloudshell-user@ip-10-130-69-226 ~]$ 
