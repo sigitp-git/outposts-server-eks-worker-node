@@ -1,5 +1,7 @@
 :'
 USSAGE:
+save the script as create-lni.sh
+[cloudshell-user@host ~]$ chmod u+x create-lni.sh
 [cloudshell-user@host ~]$ DEVICE_INDEX=14 INSTANCE_ID=i-0536954ab277adfadfadsf ./create-lni.sh
 Creating LNI on instance i-0536954ab277adfadfadsf
 Subnet = subnet-0f2dee0d23c5wkwkwkw
