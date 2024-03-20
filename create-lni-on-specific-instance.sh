@@ -1,6 +1,6 @@
 :'
 USSAGE:
-[cloudshell-user@host ~]$ DEVICE_INDEX=14 ./create-lni.sh
+[cloudshell-user@host ~]$ DEVICE_INDEX=14 INSTANCE_ID=i-0536954ab277adfadfadsf ./create-lni.sh
 Creating LNI on instance i-0536954ab277adfadfadsf
 Subnet = subnet-0f2dee0d23c5wkwkwkw
 Created ENI eni-0ebd88b685wkwkwkwwk
@@ -13,7 +13,7 @@ ENI Attachment ID = eni-attach-0d80b7342wkwkwkwkwk
 
 set -e
 
-INSTANCE_ID="i-0536954ab277adfadfadsf"
+INSTANCE_ID=$INSTANCE_ID
 
 TMP_JSON=$(aws ec2 \
         --output json \
