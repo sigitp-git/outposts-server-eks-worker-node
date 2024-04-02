@@ -1,5 +1,5 @@
 :'
-USSAGE:
+USAGE:
 save the script as create-lni.sh
 [cloudshell-user@host ~]$ chmod u+x create-lni.sh
 [cloudshell-user@host ~]$ DEVICE_INDEX=14 INSTANCE_ID=i-0536954ab277adfadfadsf ./create-lni.sh
