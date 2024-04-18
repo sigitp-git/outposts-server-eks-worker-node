@@ -40,3 +40,21 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPe
 |  10             |  3      |  c6gd.large     |
 +-----------------+---------+-----------------+
 [cloudshell-user@ip-10-130-83-34 ~]$ 
+
+[cloudshell-user@ip-10-130-83-34 ~]$ aws ec2 describe-instance-types --filters "Name=instance-type,Values=c6gd.*" --query "InstanceTypes[].{Type: InstanceType, MaxENI: NetworkInfo.MaximumNetworkInterfaces, IPv6addrPerENI: NetworkInfo.Ipv6AddressesPerInterface}" --output table
+-----------------------------------------------
+|            DescribeInstanceTypes            |
++-----------------+---------+-----------------+
+| IPv6addrPerENI  | MaxENI  |      Type       |
++-----------------+---------+-----------------+
+|  50             |  15     |  c6gd.metal     |
+|  50             |  15     |  c6gd.16xlarge  |
+|  15             |  4      |  c6gd.xlarge    |
+|  4              |  2      |  c6gd.medium    |
+|  15             |  4      |  c6gd.2xlarge   |
+|  30             |  8      |  c6gd.4xlarge   |
+|  30             |  8      |  c6gd.8xlarge   |
+|  10             |  3      |  c6gd.large     |
+|  30             |  8      |  c6gd.12xlarge  |
++-----------------+---------+-----------------+
+[cloudshell-user@ip-10-130-83-34 ~]$ 
