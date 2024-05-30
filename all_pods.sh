@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Store pod names in an array  
+# kubectl config set-context --current --namespace=kube-system
 pods=($(kubectl get po |
     awk 'NR>1 { printf sep $2; sep=" "}'))
 
