@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Store pod names in an array  
-pods=($(kubectl get po -A |
-    awk 'NR>1 { printf sep $1; sep=" "}'))
-if [ ${#pods[@]} -gt $n ]; then  # $n is still undefined!
+pods=($(kubectl get po |
+    awk 'NR>1 { printf sep $2; sep=" "}'))
+
+if [[ ${#pods[@]} -gt $n ]]; then
     for pod in "${pods[@]}"; do
-        kubectl describe pod "$pod" |
+        kubectl describe po "$pod" |
         awk -v dt="$(date +"%a, %d %b %Y")" '
             /SecretName:/ { next }
             /Name:/ { name=$NF }
