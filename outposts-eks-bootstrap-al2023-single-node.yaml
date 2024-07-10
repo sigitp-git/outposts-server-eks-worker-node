@@ -1,0 +1,73 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CFN template for Outposts server as EKS worker nodes - single node AL2023'
+Resources:
+  EC2Instance4:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType:
+        c6id.8xlarge
+      SecurityGroupIds:
+        - sg-0d504267a1a2f84f3
+      SubnetId:
+        subnet-0921ce3a021e9419c
+      KeyName:
+        keypair-name
+      ImageId:
+        ami-04185d472e722c3a7
+      IamInstanceProfile:
+        AmazonEKSNodeInstanceProfile
+      UserData:
+        Fn::Base64: !Sub |
+          MIME-Version: 1.0
+          Content-Type: multipart/mixed; boundary="//"
+
+          --//
+          Content-Type: application/node.eks.aws
+
+          ---
+          apiVersion: node.eks.aws/v1alpha1
+          kind: NodeConfig
+          spec:
+            cluster:
+              apiServerEndpoint: https://AAAAAA.yl4.us-east-1.eks.amazonaws.com
+              certificateAuthority: AAAAAAAA
+              cidr: 10.100.0.0/16
+              name: Cluster-Name
+            kubelet:
+              config:
+                maxPods: 737
+                clusterDNS:
+                - 10.100.0.10
+              flags:
+              - "--node-labels=eks.amazonaws.com/nodegroup-image=ami-04185d472e722c3a7"
+
+          --//--
+      Tags:
+        - Key: Name
+          Value: "Cluster-Node-4"
+        - Key: kubernetes.io/cluster/Cluster-Name
+          Value: "owned"
+Outputs:
+  InstanceId4:
+    Description: InstanceId of the newly created EC2 instance
+    Value:
+      Ref: EC2Instance4
+  AZ4:
+    Description: Availability Zone of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance4
+      - AvailabilityZone
+  PublicDNS4:
+    Description: Public DNSName of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance4
+      - PublicDnsName
+  PublicIP4:
+    Description: Public IP address of the newly created EC2 instance
+    Value:
+      Fn::GetAtt:
+      - EC2Instance4
+      - PublicIp
