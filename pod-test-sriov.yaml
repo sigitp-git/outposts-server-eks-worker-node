@@ -16,4 +16,3 @@ spec:
         ena/sriov_test: '1'
       limits:
         ena/sriov_test: '1'
-EOF
