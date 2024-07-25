@@ -1,5 +1,5 @@
 ### Ubuntu VPP DPDK Pod Example, Multi Platform ARM64 and AMD64, using Cloud9 Ubuntu Server 22.04 LTS
-## Note: qemu, qemu-user-static, and binfmt-support packages not available yet for AL2023 Cloud9 host
+## Note: qemu, qemu-user-static, and binfmt-support packages are not available yet for AL2023 Cloud9 host
 
 Admin:~/environment $ mkdir ubuntu-vpp-pod
 Admin:~/environment $ cd ubuntu-vpp-pod/
