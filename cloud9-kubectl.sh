@@ -4,6 +4,7 @@
 ### Attach a new role to the Cloud9 [kubectl-role-for-cloud9] instance with: https://github.com/sigitp-git/outposts-server-eks-worker-node/blob/main/policy-for-eks-rbac.json
 ### 1. AWSCloud9SSMInstanceProfile | AWS managed
 ### 2. policy-for-eks-rbac | Customer managed
+### Don't forget to add the security group of the Cloud9 instance (or default SG) to the EKS cluster additional security group (took few minutes after adding to take effect)
 
 [cloudshell-user@ip-10-130-76-69 ~]$ cat aws-auth-cm-addrole.yaml 
 apiVersion: v1
