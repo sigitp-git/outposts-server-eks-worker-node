@@ -1,7 +1,7 @@
 ### KUBECTL FOR CLOUD9
 ### ON CLOUD9, SETTINGS, AWS SETTINGS, TURN OFF AWS MANAGED TEMPORARY CREDENTIALS
 ### ASIDE FROM DEFAULT CLOUD9SSM INSTANCE PROFILE POLICY, ADD EKS RBAC FOR CLOUD9 POLICY [policy-for-eks-rbac.json] 
-### Attach a new role to the Cloud9 [kubectl-role-for-cloud9] instance with:
+### Attach a new role to the Cloud9 [kubectl-role-for-cloud9] instance with: https://github.com/sigitp-git/outposts-server-eks-worker-node/blob/main/policy-for-eks-rbac.json
 ### 1. AWSCloud9SSMInstanceProfile | AWS managed
 ### 2. policy-for-eks-rbac | Customer managed
 
