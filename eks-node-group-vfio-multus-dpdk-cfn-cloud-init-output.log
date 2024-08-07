@@ -33,36 +33,6 @@ Generating public/private ed25519 key pair.
 Your identification has been saved in /etc/ssh/ssh_host_ed25519_key
 Your public key has been saved in /etc/ssh/ssh_host_ed25519_key.pub
 The key fingerprint is:
-SHA256:wMXHDcyQmVYYfzcrzfI/uSe4PxWwvJ8E9Vynjf9bc78 root@ip-172-31-42-93.ec2.internal
-The key's randomart image is:
-+--[ED25519 256]--+
-|       .+%oo     |
-|     . .B.= .. .o|
-|      o. .. o *=+|
-|       .   . Bo++|
-|        S   o *..|
-|             = .o|
-|             .+o*|
-|            . o*B|
-|            .o.EO|
-+----[SHA256]-----+
-Generating public/private ecdsa key pair.
-Your identification has been saved in /etc/ssh/ssh_host_ecdsa_key
-Your public key has been saved in /etc/ssh/ssh_host_ecdsa_key.pub
-The key fingerprint is:
-SHA256:IzPWC5ppLMDPtUWm3+xN8pZteMIlRKgq+eE51S3r7kI root@ip-172-31-42-93.ec2.internal
-The key's randomart image is:
-+---[ECDSA 256]---+
-|          .      |
-|         . .     |
-|       o. .      |
-|.     +o   .     |
-|..  .oB.S o      |
-| .o+.B+Eo= o .   |
-|  .oX.=..++.*    |
-|   o = ...=* +   |
-|      . ==.o+    |
-+----[SHA256]-----+
 Cloud-init v. 22.2.2 running 'modules:config' at Wed, 07 Aug 2024 19:25:44 +0000. Up 52.52 seconds.
 Cloud-init v. 22.2.2 running 'modules:final' at Wed, 07 Aug 2024 19:25:45 +0000. Up 53.02 seconds.
 + subnetids='subnet-07e307dd87d2fda6d subnet-0e7ea408f5498edca subnet-06bdb51568507bb84'
