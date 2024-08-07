@@ -402,7 +402,7 @@ Resources:
 
                     ### Attach the multus interface to EC2 worker, adjust device-index incrementally for every new attachment
                     attachmentId=$(aws ec2 attach-network-interface --network-interface-id ${!multusId} \
-                    --instance-id `curl -s http://169.254.169.254/latest/meta-data/instance-id` --device-index $((n+1 )) |jq -r '.AttachmentId')
+                    --instance-id `curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id` --device-index $((n+1 )) |jq -r '.AttachmentId')
                     #IFS=' ' read -ra attachmentId <<< $attachmentResult
                     aws ec2 modify-network-interface-attribute --network-interface-id ${!multusId} --no-source-dest-check
                     aws ec2 modify-network-interface-attribute --attachment "AttachmentId"=${!attachmentId},"DeleteOnTermination"="True" \
