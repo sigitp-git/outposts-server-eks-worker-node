@@ -6,42 +6,42 @@ metadata:
 data:
   config.json: |
     {
-        “resourceList”: [
+        "resourceList": [
            {
-                “resourceName”: “sriov_netdevice_1”,
-                “selectors”: {
-                    “vendors”: [
-                        “1d0f”
+                "resourceName": "sriov_netdevice_1",
+                "selectors": {
+                    "vendors": [
+                        "1d0f"
                     ],
-                    “devices”: [
-                        “ec20"
+                    "devices": [
+                        "ec20"
                     ],
-                    “drivers”: [
-                        “ena”,
-                        “igb_uio”,
-                        “vfio-pci”
+                    "drivers": [
+                        "ena",
+                        "igb_uio",
+                        "vfio-pci"
                     ],
-                    “pciAddresses”: [
-                        “0000:00:06.0"
+                    "pciAddresses": [
+                        "0000:00:06.0"
                     ]
                 }
             },
             {
-                “resourceName”: “sriov_netdevice_2",
-                “selectors”: {
-                    “vendors”: [
-                        “1d0f”
+                "resourceName": "sriov_netdevice_2",
+                "selectors": {
+                    "vendors": [
+                        "1d0f"
                     ],
-                    “devices”: [
-                        “ec20”
+                    "devices": [
+                        "ec20"
                     ],
-                    “drivers”: [
-                        “ena”,
-                        “igb_uio”,
-                        “vfio-pci”
+                    "drivers": [
+                        "ena",
+                        "igb_uio",
+                        "vfio-pci"
                     ],
-                    “pciAddresses”: [
-                        “0000:00:07.0”
+                    "pciAddresses": [
+                        "0000:00:07.0"
                     ]
                 }
             }
