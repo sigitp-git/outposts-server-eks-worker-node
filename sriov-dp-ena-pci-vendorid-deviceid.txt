@@ -1,0 +1,17 @@
+https://devicehunt.com/view/type/pci/vendor/1d0f
+
+Vendor Details
+Amazon.com, Inc.
+Type	Information
+ID	1D0F
+Vendor Devices
+Type	Vendor ID	Vendor Name	Device ID	Device Name	More
+PCI	1d0f	Amazon.com, Inc.	efa1	Elastic Fabric Adapter (EFA)	Vendor Device
+PCI	1d0f	Amazon.com, Inc.	cd01	NVMe SSD Controller	Vendor Device
+PCI	1d0f	Amazon.com, Inc.	ec20	Elastic Network Adapter (ENA)	Vendor Device
+PCI	1d0f	Amazon.com, Inc.	efa0	Elastic Fabric Adapter (EFA)	Vendor Device
+PCI	1d0f	Amazon.com, Inc.	efa2	Elastic Fabric Adapter (EFA)	Vendor Device
+PCI	1d0f	Amazon.com, Inc.	8061	NVMe EBS Controller	Vendor Device
+PCI	1d0f	Amazon.com, Inc.	7064	NeuronDevice (Inferentia)	Vendor Device
+PCI	1d0f	Amazon.com, Inc.	7164	NeuronDevice (Trainium)	Vendor Device
+PCI	1d0f	Amazon.com, Inc.	7264	NeuronDevice (Inferentia2)	Vendor Device
