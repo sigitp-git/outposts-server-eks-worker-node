@@ -365,11 +365,7 @@ Resources:
                     - ${KUBELET_ARGS}
                 --//
                 Content-Type: text/x-shellscript; charset="us-ascii"
-
-                                #!/bin/bash
-                set -o xtrace
-
-
+                
                 #!/bin/bash
                 set -o xtrace
                 # Longhorn deployment
