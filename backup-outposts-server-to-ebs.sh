@@ -98,3 +98,6 @@ Usage Instructions
 Open the AWS Console and go to Systems Manager > Documents > “Owned by me” in the region where you deployed the SSM Automation
 Select the document name you specified when following the "Installation Instructions" and click on “Execute automation”
 Fill-in the input parameters and click on "Execute". Familiarize yourself with the document by reading through the parameters and steps description.
+
+## Create Role to Trust AWS Service: SSM to do backup: EC2, S3 (admin)
+## Attach that role to the execution of the SSM automation document
