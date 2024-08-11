@@ -2,6 +2,9 @@
   "description": "This automation runbook creates an EBS-backed AMI in region storing the data of the instance store root volume of the Linux instance running on Outposts Server. The automation uses a helper instance in Region to replicate the partitioning and content of the mounted file systems from the instance store root volume to an EBS volume restored from a previous Backup (passing an AMI ID as input parameter). If no AMI ID is specified, the automation searches for any previous backup and it takes the most recent one created with this automation. If no backup is found (e.g. when doing the first backup), the automation uses the base AMI from which the instance was launched.",
   "schemaVersion": "0.3",
   "assumeRole": "{{ AssumeRole }}",
+  "outputs": [
+    "createAMIFromSnapshot.ImageId"
+  ],
   "parameters": {
     "InstanceId": {
       "type": "AWS::EC2::Instance::Id",
@@ -47,23 +50,14 @@
       "description": "(Optional) The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that allows Systems Manager Automation to perform the actions on your behalf. If no role is specified, Systems Manager Automation uses the permissions of the user that starts this runbook. For more information, visit - https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-setup.html"
     }
   },
-  "files": {
-    "attachment.zip": {
-      "checksums": {
-        "sha256": "8b3fc69ba8229f450af1f6ae69a82b38129fd1b4de2cb93233b89a19af4b9481"
-      }
-    }
-  },
   "mainSteps": [
     {
-      "description": "Ensures there is only one execution of this runbook targeting the provided EC2 instance. ",
       "name": "ensureNoConcurrentExecutionsForTargetInstance",
       "action": "aws:executeScript",
-      "maxAttempts": 3,
-      "nextStep": "assertInstanceStatus",
-      "isCritical": true,
-      "isEnd": false,
+      "description": "Ensures there is only one execution of this runbook targeting the provided EC2 instance. ",
       "onFailure": "Abort",
+      "maxAttempts": 3,
+      "isCritical": true,
       "inputs": {
         "Runtime": "python3.8",
         "Handler": "checkConcurrency.check_concurrency_handler",
@@ -74,13 +68,11 @@
       }
     },
     {
-      "description": "Make sure the Outposts Server instance is in 'running' state.",
       "name": "assertInstanceStatus",
       "action": "aws:assertAwsResourceProperty",
-      "nextStep": "assertEC2OutpostsServerInstanceConnectedwithSSM",
-      "isCritical": true,
-      "isEnd": false,
+      "description": "Make sure the Outposts Server instance is in 'running' state.",
       "onFailure": "Abort",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeInstances",
@@ -94,13 +86,11 @@
       }
     },
     {
-      "description": "Make sure the Outposts Server instance is a SSM managed instance.",
       "name": "assertEC2OutpostsServerInstanceConnectedwithSSM",
       "action": "aws:assertAwsResourceProperty",
-      "nextStep": "assertInstancePlatformIsLinux",
-      "isCritical": true,
-      "isEnd": false,
+      "description": "Make sure the Outposts Server instance is a SSM managed instance.",
       "onFailure": "Abort",
+      "isCritical": true,
       "inputs": {
         "Service": "ssm",
         "Api": "DescribeInstanceInformation",
@@ -119,13 +109,11 @@
       }
     },
     {
-      "description": "Checks the provided Instance's platform is Linux.",
       "name": "assertInstancePlatformIsLinux",
       "action": "aws:assertAwsResourceProperty",
-      "nextStep": "describeInstance",
-      "isCritical": true,
-      "isEnd": false,
+      "description": "Checks the provided Instance's platform is Linux.",
       "onFailure": "Abort",
+      "isCritical": true,
       "inputs": {
         "Service": "ssm",
         "Api": "DescribeInstanceInformation",
@@ -144,13 +132,11 @@
       }
     },
     {
-      "description": "Describes the provided instance.",
       "name": "describeInstance",
+      "description": "Describes the provided instance.",
       "action": "aws:executeAwsApi",
-      "nextStep": "assertInstanceRootVolumeIsInstanceStore",
-      "isCritical": true,
-      "isEnd": false,
       "onFailure": "Abort",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeInstances",
@@ -202,13 +188,11 @@
       ]
     },
     {
-      "description": "Checks the root volume device type is instance-store.",
       "name": "assertInstanceRootVolumeIsInstanceStore",
       "action": "aws:assertAwsResourceProperty",
-      "nextStep": "checkOSRequirements",
-      "isCritical": true,
-      "isEnd": false,
+      "description": "Checks the root volume device type is instance-store.",
       "onFailure": "Abort",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeInstances",
@@ -222,13 +206,11 @@
       }
     },
     {
-      "description": "Checks the OS software requirements before starting",
       "name": "checkOSRequirements",
-      "action": "aws:runCommand",
-      "nextStep": "getAZfromSubnetParameter",
-      "isCritical": "true",
-      "isEnd": false,
+      "description": "Checks the OS software requirements before starting",
       "onFailure": "Abort",
+      "isCritical": "true",
+      "action": "aws:runCommand",
       "inputs": {
         "DocumentName": "AWS-RunShellScript",
         "InstanceIds": [
@@ -289,13 +271,11 @@
       }
     },
     {
-      "description": "Retrieves the AZ from the Subnet provided in the input parameters",
       "name": "getAZfromSubnetParameter",
+      "description": "Retrieves the AZ from the Subnet provided in the input parameters",
       "action": "aws:executeAwsApi",
-      "nextStep": "getDefaultRootVolumeSizeForInstanceType",
-      "isCritical": true,
-      "isEnd": false,
       "onFailure": "Abort",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeSubnets",
@@ -312,13 +292,11 @@
       ]
     },
     {
-      "description": "Retrieves the size of the Instance store root volume from the Instance type",
       "name": "getDefaultRootVolumeSizeForInstanceType",
+      "description": "Retrieves the size of the Instance store root volume from the Instance type",
       "action": "aws:executeAwsApi",
-      "nextStep": "getOutpostsServerSubnetCIDR",
-      "isCritical": true,
-      "isEnd": false,
       "onFailure": "Abort",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeInstanceTypes",
@@ -335,13 +313,11 @@
       ]
     },
     {
-      "description": "get the CIDR of the Outposts Subnet. This will be used to allow the traffic from this CIDR in the SG of the Helper instance",
       "name": "getOutpostsServerSubnetCIDR",
       "action": "aws:executeAwsApi",
-      "nextStep": "stageCreateHelperInstanceAutomation",
-      "isCritical": true,
-      "isEnd": false,
+      "description": "get the CIDR of the Outposts Subnet. This will be used to allow the traffic from this CIDR in the SG of the Helper instance",
       "onFailure": "Abort",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeSubnets",
@@ -358,14 +334,12 @@
       ]
     },
     {
-      "description": "Deploys the EC2 Helper Instance CloudFormation stack.",
       "name": "stageCreateHelperInstanceAutomation",
       "action": "aws:createStack",
-      "nextStep": "waitForEC2HelperInstanceCreation",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Deploys the EC2 Helper Instance CloudFormation stack.",
       "onFailure": "step:describeCloudFormationErrorFromStackEvents",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": true,
       "inputs": {
         "StackName": "BackupOutpostsServerInstance-EC2Helper-{{ UniqueId }}",
         "TemplateBody": "# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.\n# SPDX-License-Identifier: MIT-0\n\nAWSTemplateFormatVersion: 2010-09-09\nDescription: Creates a helper instance in the specified AZ or subnet\nParameters:\n    Architecture:\n        Type: String\n        AllowedValues:\n        - arm64\n        - x86_64\n    OutpostsSubnetCIDR:\n        Description: Outposts Server Subnet CIDR.\n        Type: String\n    SubnetId:\n        Description: Subnet ID of the helper instance.\n        Type: String\n    VpcId:\n        Description: VPC ID of the helper instance and Outposts Server instance.\n        Type: String\n    KeyPairName:\n        Description: SSH KeyPair Name of the helper instance\n        Type: String\n    ExecutionId:\n        Description: Systems Manager Automation Execution ID.\n        Type: String\n        Default: ''\n    HelperInstanceLinuxAMI:\n        Description: Helper instance AMI ID.\n        Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'\n        Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64\n    HelperInstanceARMLinuxAMI:\n        Description: Helper instance AMI ID.\n        Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'\n        Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64\n    HelperInstanceType:\n        Description: The EC2 instance type for the EC2 Helper instance.\n        Type: String\n    CreateHelperInstance:\n        Description: 'Confirm that you want to create the helper instance. Default: False'\n        Type: String\n        Default: 'False'\n        AllowedValues:\n        - 'True'\n        - 'False'\nConditions:\n    ArchitectureIsARM: !Equals \n        - !Ref Architecture\n        - arm64\n    CreateHelperInstance: !Equals \n        - !Ref CreateHelperInstance\n        - 'True'\nResources:\n    IsolatedSecurityGroup:\n        Type: AWS::EC2::SecurityGroup\n        Properties:\n            GroupDescription: Block the outbound connectivity\n            VpcId: !Ref VpcId\n            SecurityGroupEgress:\n              - CidrIp: 127.0.0.1/32\n                IpProtocol: -1\n    HelperInstanceSecurityGroup:\n        Type: AWS::EC2::SecurityGroup\n        Properties:\n            GroupDescription: Allow SSH connection from the Outposts Server subnet CIDR\n            VpcId: !Ref VpcId\n            SecurityGroupIngress:\n              - IpProtocol: tcp\n                FromPort: 22\n                ToPort: 22\n                CidrIp: !Ref OutpostsSubnetCIDR\n    HelperInstanceKeyPair:\n        Type: 'AWS::EC2::KeyPair'\n        Properties:\n            KeyName: !Ref KeyPairName\n    HelperEc2InstanceLaunchTemplate:\n        Type: AWS::EC2::LaunchTemplate\n        Properties:\n            LaunchTemplateData:\n                MetadataOptions:\n                    HttpEndpoint: enabled\n                    HttpTokens: required\n    HelperInstance:\n        Condition: CreateHelperInstance\n        Type: 'AWS::EC2::Instance'\n        Properties:\n            ImageId: !If\n                    - ArchitectureIsARM\n                    - !Ref HelperInstanceARMLinuxAMI\n                    - !Ref HelperInstanceLinuxAMI\n            KeyName: !Ref HelperInstanceKeyPair\n            LaunchTemplate:\n                LaunchTemplateId: !Ref HelperEc2InstanceLaunchTemplate\n                Version: !GetAtt HelperEc2InstanceLaunchTemplate.LatestVersionNumber\n            InstanceType: !Ref HelperInstanceType\n            PropagateTagsToVolumeOnCreation: true\n            NetworkInterfaces:\n              - AssociatePublicIpAddress: true\n                DeleteOnTermination: true\n                DeviceIndex: '0'\n                SubnetId: !Ref SubnetId\n                GroupSet:\n                  - !Ref HelperInstanceSecurityGroup\n            UserData:\n                Fn::Base64: !Sub |\n                    #!/bin/bash\n                    grubby --update-kernel ALL --args selinux=0\n                    reboot\nOutputs:\n    HelperInstanceId:\n        Value: !Ref HelperInstance\n    HelperInstancePrivateIp:\n        Value: !GetAtt HelperInstance.PrivateIp\n    HelperInstanceKeyID:\n        Value: !GetAtt HelperInstanceKeyPair.KeyPairId\n    IsolatedSgId:\n        Value: !Ref IsolatedSecurityGroup\n",
@@ -427,16 +401,14 @@
       ]
     },
     {
-      "description": "Waits for the EC2 Helper CloudFormation stack update to complete.",
       "name": "waitForEC2HelperInstanceCreation",
       "action": "aws:waitForAwsResourceProperty",
+      "description": "Waits for the EC2 Helper CloudFormation stack update to complete.",
+      "onFailure": "step:describeCloudFormationErrorFromStackEvents",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": true,
       "maxAttempts": 5,
       "timeoutSeconds": 600,
-      "nextStep": "describeStackOutput",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
-      "onFailure": "step:describeCloudFormationErrorFromStackEvents",
       "inputs": {
         "Service": "cloudformation",
         "Api": "DescribeStacks",
@@ -449,14 +421,12 @@
       }
     },
     {
-      "description": "Describes the EC2Helper CloudFormation stack Output to obtain the id of the helper instance, its private IP, its SSH key ID and the security group id to isolate the Baseline instance.",
       "name": "describeStackOutput",
       "action": "aws:executeAwsApi",
-      "nextStep": "createBaselineVolume",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Describes the EC2Helper CloudFormation stack Output to obtain the id of the helper instance, its private IP, its SSH key ID and the security group id to isolate the Baseline instance.",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": true,
       "inputs": {
         "Service": "cloudformation",
         "Api": "DescribeStacks",
@@ -486,15 +456,13 @@
       ]
     },
     {
-      "description": "Creates the Baseline Volume used to sync the data of the Outpost Server instance. If an AMI-ID is provided in the input parameter, this volume is created from the snapshot of the root device of that AMI. If the default automatic selection is used, this step will create a volume from the most recent backup performed. If this is the first backup this step will use the source AMI of the Outpost Server instance. If the snapshots of the Baseline AMI are not directly accessible, this step will create a Baseline instance from the AMI first and then terminate it immediately, preserving the volume that will be used as the Baseline volume.",
       "name": "createBaselineVolume",
       "action": "aws:executeScript",
-      "maxAttempts": 1,
-      "nextStep": "describeImage",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Creates the Baseline Volume used to sync the data of the Outpost Server instance. If an AMI-ID is provided in the input parameter, this volume is created from the snapshot of the root device of that AMI. If the default automatic selection is used, this step will create a volume from the most recent backup performed. If this is the first backup this step will use the source AMI of the Outpost Server instance. If the snapshots of the Baseline AMI are not directly accessible, this step will create a Baseline instance from the AMI first and then terminate it immediately, preserving the volume that will be used as the Baseline volume.",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "maxAttempts": 1,
+      "isCritical": true,
       "inputs": {
         "Runtime": "python3.8",
         "Handler": "createBaselineVolume.create_baseline_volume_handler",
@@ -534,14 +502,12 @@
       ]
     },
     {
-      "description": "Describes the ImageId of the BaselineInstance and check if it has markeplace product code associated to it.",
       "name": "describeImage",
+      "description": "Describes the ImageId of the BaselineInstance and check if it has markeplace product code associated to it.",
       "action": "aws:executeAwsApi",
-      "nextStep": "branchOnMarketplaceProductCodeType",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeImages",
@@ -560,6 +526,10 @@
     {
       "name": "branchOnMarketplaceProductCodeType",
       "action": "aws:branch",
+      "description": "Checks if the Baseline AMI has a Marketplace product code associated. If so, the helper instance needs to be stopped before attaching the volume to it.",
+      "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": true,
       "inputs": {
         "Choices": [
           {
@@ -572,31 +542,28 @@
       }
     },
     {
-      "description": "Stop the Helper instance before attaching the volume if it has Markeplace product code associated.",
       "name": "stopHelperInstance",
       "action": "aws:changeInstanceState",
-      "nextStep": "attachInstanceRootVolumeToLinuxEC2HelperInstance",
-      "isCritical": false,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Stop the Helper instance before attaching the volume if it has Markeplace product code associated.",
       "onFailure": "step:forceStopInstance",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
       "inputs": {
         "InstanceIds": [
           "{{ describeStackOutput.HelperInstanceId }}"
         ],
         "CheckStateOnly": false,
         "DesiredState": "stopped"
-      }
+      },
+      "isCritical": false,
+      "nextStep": "attachInstanceRootVolumeToLinuxEC2HelperInstance"
     },
     {
-      "description": "Forces stop the Helper instance.",
       "name": "forceStopInstance",
       "action": "aws:changeInstanceState",
-      "nextStep": "attachInstanceRootVolumeToLinuxEC2HelperInstance",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Forces stop the Helper instance.",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": true,
       "inputs": {
         "InstanceIds": [
           "{{ describeStackOutput.HelperInstanceId }}"
@@ -607,14 +574,12 @@
       }
     },
     {
-      "description": "Attaches the EBS baseline root volume back to Linux EC2 Helper instance as /dev/sdf.",
       "name": "attachInstanceRootVolumeToLinuxEC2HelperInstance",
       "action": "aws:executeAwsApi",
-      "nextStep": "waitForInstanceRootVolumeToBeAttachedToLinuxEC2HelperInstance",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Attaches the EBS baseline root volume back to Linux EC2 Helper instance as /dev/sdf.",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "AttachVolume",
@@ -624,14 +589,12 @@
       }
     },
     {
-      "description": "Waits for the EBS root volume status is in-use.",
       "name": "waitForInstanceRootVolumeToBeAttachedToLinuxEC2HelperInstance",
       "action": "aws:waitForAwsResourceProperty",
-      "nextStep": "startLinuxHelperInstance",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Waits for the EBS root volume status is in-use.",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeVolumes",
@@ -645,32 +608,28 @@
       }
     },
     {
-      "description": "Start or make sure the Helper instance is running after attaching the volume.",
       "name": "startLinuxHelperInstance",
       "action": "aws:changeInstanceState",
-      "nextStep": "waitForLinuxHelperInstanceStatusChecks",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Start or make sure the Helper instance is running after attaching the volume.",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
       "inputs": {
         "InstanceIds": [
           "{{ describeStackOutput.HelperInstanceId }}"
         ],
         "CheckStateOnly": false,
         "DesiredState": "running"
-      }
+      },
+      "isCritical": true
     },
     {
-      "description": "Make sure the Linux Helper EC2 instance is passing the Instance Reachability check",
       "name": "waitForLinuxHelperInstanceStatusChecks",
       "action": "aws:waitForAwsResourceProperty",
-      "timeoutSeconds": 1200,
-      "nextStep": "replicatePartitionAndRsync",
-      "isCritical": "true",
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Make sure the Linux Helper EC2 instance is passing the Instance Reachability check",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": "true",
+      "timeoutSeconds": 1200,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeInstanceStatus",
@@ -684,14 +643,12 @@
       }
     },
     {
-      "description": "Execute the script to replicate the partitioning, the FS layout and sync the content of the FS",
       "name": "replicatePartitionAndRsync",
-      "action": "aws:runCommand",
-      "nextStep": "createSnapshotAfterSynch",
-      "isCritical": "true",
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Execute the script to replicate the partitioning, the FS layout and sync the content of the FS",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": "true",
+      "action": "aws:runCommand",
       "inputs": {
         "DocumentName": "AWS-RunShellScript",
         "InstanceIds": [
@@ -1016,14 +973,12 @@
       }
     },
     {
-      "description": "Create a snapshot of the EBS volume attached to the target instance where the data was synched",
       "name": "createSnapshotAfterSynch",
       "action": "aws:executeAwsApi",
-      "nextStep": "stopHelperInstanceAfterSnapshot",
-      "isCritical": "true",
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Create a snapshot of the EBS volume attached to the target instance where the data was synched",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": "true",
       "inputs": {
         "Service": "ec2",
         "Api": "CreateSnapshot",
@@ -1039,29 +994,26 @@
       ]
     },
     {
-      "description": "Stop the Helper instance after starting the snapshot creation and while waiting for its completion.",
       "name": "stopHelperInstanceAfterSnapshot",
       "action": "aws:changeInstanceState",
-      "nextStep": "waitForSnapshotCompletion",
-      "isCritical": false,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Stop the Helper instance after starting the snapshot creation and while waiting for its completion.",
       "onFailure": "step:forceStopInstanceAfterSnapshot",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
       "inputs": {
         "InstanceIds": [
           "{{ describeStackOutput.HelperInstanceId }}"
         ],
         "CheckStateOnly": false,
         "DesiredState": "stopped"
-      }
+      },
+      "isCritical": false,
+      "nextStep": "waitForSnapshotCompletion"
     },
     {
-      "description": "Forces stop the Helper instance.",
       "name": "forceStopInstanceAfterSnapshot",
       "action": "aws:changeInstanceState",
-      "nextStep": "waitForSnapshotCompletion",
+      "description": "Forces stop the Helper instance.",
       "isCritical": false,
-      "isEnd": false,
       "inputs": {
         "InstanceIds": [
           "{{ describeStackOutput.HelperInstanceId }}"
@@ -1072,14 +1024,12 @@
       }
     },
     {
-      "description": "Wait for the completion of the EBS snapshot before creating an AMI from it.",
       "name": "waitForSnapshotCompletion",
       "action": "aws:waitForAwsResourceProperty",
-      "nextStep": "createAMIFromSnapshot",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "description": "Wait for the completion of the EBS snapshot before creating an AMI from it.",
       "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
+      "isCritical": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DescribeSnapshots",
@@ -1093,14 +1043,13 @@
       }
     },
     {
-      "description": "Create an AMI from the EBS snapshot created previously",
       "name": "createAMIFromSnapshot",
+      "description": "Create an AMI from the EBS snapshot created previously",
       "action": "aws:executeAwsApi",
+      "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
       "nextStep": "unstageCreateHelperInstanceAutomation",
       "isCritical": "true",
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
-      "onFailure": "step:unstageCreateHelperInstanceAutomation",
       "inputs": {
         "Service": "ec2",
         "Api": "RegisterImage",
@@ -1126,15 +1075,12 @@
       ]
     },
     {
-      "description": "Describes errors from the EC2 Helper Instance CloudFormation stack.",
       "name": "describeCloudFormationErrorFromStackEvents",
+      "onFailure": "Continue",
+      "onCancel": "step:unstageCreateHelperInstanceAutomation",
       "action": "aws:executeAwsApi",
       "maxAttempts": 3,
-      "nextStep": "waitForCloudFormationStack",
-      "isCritical": false,
-      "isEnd": false,
-      "onCancel": "step:unstageCreateHelperInstanceAutomation",
-      "onFailure": "step:waitForCloudFormationStack",
+      "description": "Describes errors from the EC2 Helper Instance CloudFormation stack.",
       "inputs": {
         "Service": "cloudformation",
         "Api": "DescribeStackEvents",
@@ -1146,19 +1092,17 @@
           "Selector": "$.StackEvents..ResourceStatusReason",
           "Type": "StringList"
         }
-      ]
+      ],
+      "isCritical": false
     },
     {
-      "description": "Waits until the AWS CloudFormation stack is in a terminal status before deleting it.",
       "name": "waitForCloudFormationStack",
       "action": "aws:waitForAwsResourceProperty",
-      "maxAttempts": 3,
-      "timeoutSeconds": 600,
-      "nextStep": "unstageCreateHelperInstanceAutomation",
-      "isCritical": false,
-      "isEnd": false,
+      "description": "Waits until the AWS CloudFormation stack is in a terminal status before deleting it.",
+      "onFailure": "Continue",
       "onCancel": "step:unstageCreateHelperInstanceAutomation",
-      "onFailure": "step:unstageCreateHelperInstanceAutomation",
+      "timeoutSeconds": 600,
+      "maxAttempts": 3,
       "inputs": {
         "Service": "cloudformation",
         "Api": "DescribeStacks",
@@ -1175,36 +1119,39 @@
           "UPDATE_ROLLBACK_FAILED",
           "UPDATE_ROLLBACK_COMPLETE"
         ]
-      }
+      },
+      "isCritical": false
     },
     {
-      "description": "Deletes the CreateHelperInstanceAutomation CloudFormation stack.",
       "name": "unstageCreateHelperInstanceAutomation",
       "action": "aws:deleteStack",
+      "description": "Deletes the CreateHelperInstanceAutomation CloudFormation stack.",
       "maxAttempts": 3,
-      "nextStep": "cleanupBaselineInstanceRootVolume",
-      "isCritical": true,
-      "isEnd": false,
-      "onCancel": "step:cleanupBaselineInstanceRootVolume",
-      "onFailure": "step:cleanupBaselineInstanceRootVolume",
       "inputs": {
         "StackName": "{{ stageCreateHelperInstanceAutomation.CloudFormationStackId }}"
-      }
+      },
+      "isCritical": true,
+      "onFailure": "Continue",
+      "onCancel": "step:cleanupBaselineInstanceRootVolume"
     },
     {
-      "description": "Delete the Baseline instance's EBS root volume.",
       "name": "cleanupBaselineInstanceRootVolume",
       "action": "aws:executeAwsApi",
+      "description": "Delete the Baseline instance's EBS root volume.",
       "isCritical": true,
-      "isEnd": true,
       "inputs": {
         "Service": "ec2",
         "Api": "DeleteVolume",
         "VolumeId": "{{ createBaselineVolume.BaselineVolumeId }}"
-      }
+      },
+      "isEnd": true
     }
   ],
-  "outputs": [
-    "createAMIFromSnapshot.ImageId"
-  ]
+  "files": {
+    "attachment.zip": {
+      "checksums": {
+        "sha256": "8b3fc69ba8229f450af1f6ae69a82b38129fd1b4de2cb93233b89a19af4b9481"
+      }
+    }
+  }
 }
