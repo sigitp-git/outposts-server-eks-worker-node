@@ -33,6 +33,11 @@ Admin:~/environment $ aws ssm start-session --target i-063eb2f1e23588223
 Starting session with SessionId: i-0c9fe2ee9c90db8c6-ags4ieyoutxtbjbon3ea44socy
 sh-5.2$ 
 
+## shorter with --t
+Admin:~/environment $ aws ssm start-session --t i-063eb2f1e23588223
+Starting session with SessionId: i-0c9fe2ee9c90db8c6-ags4ieyoutxtbjbon3ea44socy
+sh-5.2$ 
+
 
 ### enable SSH and SCP over SSM
 ### https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-getting-started-enable-ssh-connections.html
