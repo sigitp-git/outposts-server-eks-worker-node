@@ -42,3 +42,59 @@ Complete!
 sh-5.2$ fdisk -v
 fdisk from util-linux 2.37.4
 sh-5.2$ 
+
+## on Cloud9/cloudshell, clone the repo
+Admin:~/environment $ git clone https://github.com/aws-samples/backup-outposts-servers-linux-instance.git
+Cloning into 'backup-outposts-servers-linux-instance'...
+remote: Enumerating objects: 76, done.
+remote: Counting objects: 100% (76/76), done.
+remote: Compressing objects: 100% (74/74), done.
+remote: Total 76 (delta 37), reused 17 (delta 1), pack-reused 0
+Receiving objects: 100% (76/76), 41.63 KiB | 3.78 MiB/s, done.
+Resolving deltas: 100% (37/37), done.
+Admin:~/environment $ 
+
+Admin:~/environment $ cd backup-outposts-servers-linux-instance
+
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ make documents
+Removing ./Output
+Making ./Output
+python3 ./Setup/create_document.py --document_name "BackupOutpostsServerLinuxInstanceToEBS.json" > ./Output/"BackupOutpostsServerLinuxInstanceToEBS.json"
+Done making documents
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ 
+
+## upload the Attachment output to S3
+## https://docs.aws.amazon.com/cli/latest/userguide/cli-services-s3-commands.html
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ aws s3 ls
+2024-04-26 16:52:17 aws-cloudtrail-logs-291615555612-7732bd30
+2024-07-23 02:28:09 aws-quicksetup-patchpolicy-291615555612-w6dy7
+2024-07-23 02:27:41 aws-quicksetup-patchpolicy-access-log-291615555612-b407-w6dy7
+2024-03-15 23:32:17 cf-templates-1eqq1l1vlu107-us-east-1
+
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ aws s3 mb s3://ssm-automation-doc
+make_bucket: ssm-automation-doc
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ 
+
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ aws s3 cp Output/Attachments/attachment.zip s3://ssm-automation-doc
+upload: Output/Attachments/attachment.zip to s3://ssm-automation-doc/attachment.zip
+
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ aws s3 ls s3://ssm-automation-doc
+2024-08-11 19:31:05      11602 attachment.zip
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ 
+
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ BUCKET_NAME="ssm-automation-doc"
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ DOC_NAME="BackupOutpostsServerLinuxInstanceToEBS"
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ OUTPOST_REGION="us-east-1"
+
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ aws ssm create-document --content file://Output/BackupOutpostsServerLinuxInstanceToEBS.json --name ${DOC_NAME} --document-type "Automation" --document-format JSON --attachments Key=S3FileUrl,Values=s3://${BUCKET_NAME}/attachment.zip,Name=attachment.zip --region ${OUTPOST_REGION}
+[JSON DOC OUTPUT]
+
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ aws ssm create-document --content file://Output/BackupOutpostsServerLinuxInstanceToEBS.json --name ${DOC_NAME} --document-type "Automation" --document-format JSON --attachments Key=S3FileUrl,Values=s3://${BUCKET_NAME}/attachment.zip,Name=attachment.zip --region ${OUTPOST_REGION}
+An error occurred (DocumentAlreadyExists) when calling the CreateDocument operation: Document with same name BackupOutpostsServerLinuxInstanceToEBS already exists
+Admin:~/environment/backup-outposts-servers-linux-instance (main) $ 
+
+## using the document
+Usage Instructions
+Open the AWS Console and go to Systems Manager > Documents > “Owned by me” in the region where you deployed the SSM Automation
+Select the document name you specified when following the "Installation Instructions" and click on “Execute automation”
+Fill-in the input parameters and click on "Execute". Familiarize yourself with the document by reading through the parameters and steps description.
