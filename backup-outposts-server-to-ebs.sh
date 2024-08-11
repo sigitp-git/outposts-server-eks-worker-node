@@ -101,3 +101,5 @@ Fill-in the input parameters and click on "Execute". Familiarize yourself with t
 
 ## Create Role to Trust AWS Service: SSM to do backup: EC2, S3 (admin)
 ## Attach that role to the execution of the SSM automation document
+## Remember, rsync needs to be installed on the node
+## Remember, subnet must NOT be Outposts subnet, but subnet in Region
