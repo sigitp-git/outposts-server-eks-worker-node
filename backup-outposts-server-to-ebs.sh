@@ -106,3 +106,39 @@ Fill-in the input parameters and click on "Execute". Familiarize yourself with t
 
 ## Example of successful execution
 https://us-east-1.console.aws.amazon.com/systems-manager/automation/execution/fe4576d1-e7f9-4e29-9a67-3ecc06573b32?region=us-east-1
+
+Input parameters
+AmiId
+SelectAutomatically
+AssumeRole
+arn:aws:iam::01234567890:role/SSM-Admin-for-Outposts-Server-Backup
+Exclusions
+-
+InstanceId
+i-063eb2f1e23588223
+MaxThroughput
+0
+SubnetId
+subnet-0304c7c31f6b5a854
+TemporaryInstancesType
+c5.large
+UniqueId
+{{ automation:EXECUTION_ID }}
+
+Output:
+createAMIFromSnapshot.ImageId
+ami-011d8c38ec0f040d6
+
+Executed automation [1 hour]
+BackupOutpostsServerLinuxInstanceToEBS
+Start time
+Sun, 11 Aug 2024 20:24:31 GMT
+Execution ID
+fe4576d1-e7f9-4e29-9a67-3ecc06573b32
+End time
+Sun, 11 Aug 2024 21:23:00 GMT
+Execution mode
+Auto
+Runbook version
+1
+
