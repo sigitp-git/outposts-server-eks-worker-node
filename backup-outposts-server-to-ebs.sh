@@ -103,3 +103,6 @@ Fill-in the input parameters and click on "Execute". Familiarize yourself with t
 ## Attach that role to the execution of the SSM automation document
 ## Remember, rsync needs to be installed on the node
 ## Remember, subnet must NOT be Outposts subnet, but subnet in Region
+
+## Example of successful execution
+https://us-east-1.console.aws.amazon.com/systems-manager/automation/execution/fe4576d1-e7f9-4e29-9a67-3ecc06573b32?region=us-east-1
