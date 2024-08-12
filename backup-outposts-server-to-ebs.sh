@@ -66,9 +66,9 @@ Admin:~/environment/backup-outposts-servers-linux-instance (main) $
 ## upload the Attachment output to S3
 ## https://docs.aws.amazon.com/cli/latest/userguide/cli-services-s3-commands.html
 Admin:~/environment/backup-outposts-servers-linux-instance (main) $ aws s3 ls
-2024-04-26 16:52:17 aws-cloudtrail-logs-291615555612-7732bd30
-2024-07-23 02:28:09 aws-quicksetup-patchpolicy-291615555612-w6dy7
-2024-07-23 02:27:41 aws-quicksetup-patchpolicy-access-log-291615555612-b407-w6dy7
+2024-04-26 16:52:17 aws-cloudtrail-logs-01234567890-7732bd30
+2024-07-23 02:28:09 aws-quicksetup-patchpolicy-01234567890-w6dy7
+2024-07-23 02:27:41 aws-quicksetup-patchpolicy-access-log-01234567890-b407-w6dy7
 2024-03-15 23:32:17 cf-templates-1eqq1l1vlu107-us-east-1
 
 Admin:~/environment/backup-outposts-servers-linux-instance (main) $ aws s3 mb s3://ssm-automation-doc
@@ -142,3 +142,103 @@ Auto
 Runbook version
 1
 
+AMI OUTPUT DETAILS
+==================
+Image summary for ami-011d8c38ec0f040d6
+EC2 Image Builder
+Actions
+Launch instance from AMI
+AMI ID
+
+ami-011d8c38ec0f040d6
+Image type
+machine
+Platform details
+Linux/UNIX
+Root device type
+EBS
+AMI name
+
+BackupOutpostsServerInstance-i-063eb2f1e23588223_fe4576d1-e7f9-4e29-9a67-3ecc06573b32
+Owner account ID
+
+01234567890
+Architecture
+x86_64
+Usage operation
+RunInstances
+Root device name
+
+/dev/xvda
+Status
+ Available
+Source
+
+01234567890/BackupOutpostsServerInstance-i-063eb2f1e23588223_fe4576d1-e7f9-4e29-9a67-3ecc06573b32
+Virtualization type
+hvm
+Boot mode
+uefi-preferred
+State reason
+–
+Creation date
+
+Sun Aug 11 2024 16:22:18 GMT-0500 (Central Daylight Time)
+Kernel ID
+–
+Description
+–
+Product codes
+–
+RAM disk ID
+–
+Deprecation time
+–
+Last launched time
+–
+Block devices
+
+/dev/xvda=snap-0f94b3ba1c7ac8a04:1770:true:gp2
+Deregistration protection
+Disabled
+
+Permissions
+
+Storage
+
+Tags
+Root device details
+Root device name
+
+/dev/xvda
+Root device type
+EBS
+Block devices
+
+1
+
+
+Device ID
+	
+Device name
+	
+Volume size (GiB)
+	
+Volume type
+	
+Encrypted
+	
+Delete on termination
+	
+KMS key ID
+	
+Outpost ID
+
+snap-0f94b3ba1c7ac8a04 
+/dev/xvda
+1770
+gp2
+No
+Yes
+–
+–
