@@ -164,3 +164,7 @@ Admin:~/environment $ aws ecr list-images --repository-name sigitp-ecr
     ]
 }
 Admin:~/environment $ 
+
+### share ECR image to another account
+https://repost.aws/knowledge-center/secondary-account-access-ecr
+https://www.youtube.com/watch?v=YvqImD7pe9g
