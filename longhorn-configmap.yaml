@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: longhorn-default-setting
+  namespace: longhorn-system
+  labels:
+    app.kubernetes.io/name: longhorn
+    app.kubernetes.io/instance: longhorn
+    app.kubernetes.io/version: v1.6.2
+data:
+  default-setting.yaml: |-
+    system-managed-components-node-selector: 'storage:longhorn'
+    node-down-pod-deletion-policy: delete-both-statefulset-and-deployment-pod
+    default-data-path: /mnt/longhorn
+    create-default-disk-labeled-nodes: true
