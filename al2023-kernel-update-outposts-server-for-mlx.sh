@@ -133,3 +133,9 @@ CONFIG_MLX5_INFINIBAND=m
 # CONFIG_MLX5_VFIO_PCI is not set
 # CONFIG_MLX_PLATFORM is not set
 [ec2-user@ip-172-31-148-193 ~]$ 
+
+[ec2-user@ip-10-0-55-234 ~]$ lspci | grep Ether
+0001:43:00.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+0001:44:00.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+
+[ec2-user@ip-10-0-55-234 ~]$ ls -l /sys/class/net | awk '{print $9, $10, $11}' | grep "0001:43:00.0"
