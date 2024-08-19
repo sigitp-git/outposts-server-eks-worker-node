@@ -108,3 +108,30 @@ Admin:~/environment/ubuntu-iperf3-dockerfile $  aws ecr list-images --repository
         }
     ]
 }
+
+
+Admin:~/environment $ cat iperf3-pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: iperf3-pod
+spec:
+  containers:
+  - name: iperf3-container
+    image: 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-iperf3
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 300000; done;" ]  
+Admin:~/environment $ 
+
+Admin:~/environment $ cat iperf3-pod2.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: iperf3-pod2
+spec:
+  containers:
+  - name: iperf3-container
+    image: 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-iperf3
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 300000; done;" ]  
+Admin:~/environment $ 
