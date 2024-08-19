@@ -124,6 +124,20 @@ spec:
 Admin:~/environment $ 
 
 ==========================================
+Admin:~/environment $ cat iperf3-pod2.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: iperf3-pod2
+spec:
+  containers:
+  - name: iperf3-container
+    image: 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-iperf3
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 300000; done;" ]  
+Admin:~/environment $ 
+
+==========================================
 Admin:~/environment $ kubectl get po -o wide
 NAME                                READY   STATUS    RESTARTS       AGE     IP               NODE                             NOMINATED NODE   READINESS GATES
 iperf3-pod                          1/1     Running   0              9m44s   172.31.148.220   ip-172-31-152-24.ec2.internal    <none>           <none>
@@ -137,20 +151,6 @@ root@iperf3-pod:/# iperf3 -s -p 5201
 -----------------------------------------------------------
 Server listening on 5201
 -----------------------------------------------------------
-
-==========================================
-Admin:~/environment $ cat iperf3-pod2.yaml 
-apiVersion: v1
-kind: Pod
-metadata:
-  name: iperf3-pod2
-spec:
-  containers:
-  - name: iperf3-container
-    image: 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-iperf3
-    command: [ "/bin/bash", "-c", "--" ]
-    args: [ "while true; do sleep 300000; done;" ]  
-Admin:~/environment $ 
 
 ==========================================
 CLIENT-SHELL [iperf3-pod2: 172.31.150.90]:
