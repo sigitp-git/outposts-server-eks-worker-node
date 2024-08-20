@@ -19,3 +19,5 @@ spec:
         "gateway": "192.168.1.1"
       }
     }'
+# eth0 from VPC CNI, net1 from macvlan ENI with ENA driver, for non-dpdk traffic
+# kubectl get network-attachment-definitions
