@@ -3,7 +3,7 @@ kind: NetworkAttachmentDefinition
 metadata:
   annotations:
     k8s.v1.cni.cncf.io/resourceName: intel.com/sriov_netdevice_2
-  name: vfio-dpdk-net-1
+  name: vfio-dpdk-hostdevice-net-1
 spec:
   config: ‘{
       “cniVersion”: “0.3.1”,
@@ -13,3 +13,21 @@ spec:
 # eth0 from VPC CNI, net1 from host-device ENI with vfio-pci driver, bound using dpdk-devbind.py, for dpdk traffic
 # kubectl get network-attachment-definitions
 # intel.com/sriov_netdevice_2 is from SRIOV-DP configmap
+#            {
+#                "resourceName": "sriov_netdevice_2",
+#                "selectors": {
+#                    "vendors": [
+#                        "1d0f"
+#                    ],
+#                    "devices": [
+#                        "ec20"
+#                    ],
+#                    "drivers": [
+#                        "ena",
+#                        "igb_uio",
+#                        "vfio-pci"
+#                    ],
+#                    "pciAddresses": [
+#                        "0000:00:07.0"
+#                    ]
+#                }
