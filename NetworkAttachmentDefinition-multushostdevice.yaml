@@ -21,3 +21,4 @@ spec:
             }
           }'
 #eth0 from VPC CNI, net1 from host-device ENI with vfio-pci driver, bound using dpdk-devbind.py, for dpdk traffic
+# kubectl get network-attachment-definitions
