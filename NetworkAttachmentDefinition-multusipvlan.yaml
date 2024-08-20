@@ -13,3 +13,4 @@ spec:
         "addresses": [{"address": "172.31.111.240/20","gateway": "172.31.96.1"}]
       }
     }'
+#eth0 from VPC CNI, net1 from ipvlan ENI with ENA driver, for non-dpdk traffic
