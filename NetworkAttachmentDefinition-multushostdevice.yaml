@@ -5,11 +5,11 @@ metadata:
     k8s.v1.cni.cncf.io/resourceName: intel.com/sriov_netdevice_2
   name: vfio-dpdk-hostdevice-net-1
 spec:
-  config: ‘{
+  config: '{
       “cniVersion”: “0.3.1”,
       “type”: “host-device”,
       “qos”: “5”
-    }’
+    }'
 # eth0 from VPC CNI, net1 from host-device ENI with vfio-pci driver, bound using dpdk-devbind.py, for dpdk traffic
 # kubectl get network-attachment-definitions
 # intel.com/sriov_netdevice_2 is from SRIOV-DP configmap
