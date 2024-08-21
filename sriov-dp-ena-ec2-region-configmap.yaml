@@ -63,3 +63,18 @@ data:
 #        Subsystem: 1d0f:ec20
 #        Kernel driver in use: vfio-pci
 # sh-5.2$ 
+#
+# NOTE: 1d0f is vendor ID, ec20 is VF device ID
+#
+# Another example on Mellanox CX7 card, vendor ID: 15b3, VF device ID: 1021
+#
+# sh-5.2$ lspci | grep Mellanox [get the pci ID]
+# sh-5.2$ lspci -nk | grep 0000:02:00.0 -A2
+# 0000:02:00.0 0200: 15b3:1021
+#        Subsystem: 15b3:0022
+#        Kernel driver in use: mlx5_core
+# sh-5.2$ lspci -nk | grep 0000:02:00.1 -A2
+# 0000:02:00.1 0200: 15b3:1021
+#        Subsystem: 15b3:0022
+#        Kernel driver in use: mlx5_core
+# sh-5.2$ 
