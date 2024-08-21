@@ -118,3 +118,25 @@ spec:
 # PCIDEVICE_INTEL_COM_SRIOV_NETDEVICE_1_INFO={"0000:00:06.0":{"generic":{"deviceID":"0000:00:06.0"}}}
 # _=/usr/bin/env
 # root@ubuntu-netutils2:/src# 
+#
+#
+# NOTE: since it's VFIO, you can see the DPDK interface with ifconfig, both on the host, and on the pod
+# Admin:~/environment $ kubectl exec -it ubuntu-netutils2 -- bash
+# root@ubuntu-netutils2:/src# ifconfig
+# eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+#        inet 172.31.144.120  netmask 255.255.255.255  broadcast 0.0.0.0
+#        inet6 fe80::bce2:3eff:febe:c683  prefixlen 64  scopeid 0x20<link>
+#        ether be:e2:3e:be:c6:83  txqueuelen 0  (Ethernet)
+#        RX packets 5  bytes 446 (446.0 B)
+#        RX errors 0  dropped 0  overruns 0  frame 0
+#        TX packets 9  bytes 726 (726.0 B)
+#        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+#
+# lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+#        inet 127.0.0.1  netmask 255.0.0.0
+#        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+#        loop  txqueuelen 1000  (Local Loopback)
+#        RX packets 0  bytes 0 (0.0 B)
+#        RX errors 0  dropped 0  overruns 0  frame 0
+#        TX packets 0  bytes 0 (0.0 B)
+#        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
