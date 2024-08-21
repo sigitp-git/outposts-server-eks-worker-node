@@ -429,6 +429,10 @@ Resources:
                 echo "modprobe mlx5_core" >> /etc/pm/power.d/node-init-script.sh
                 echo "modprobe mlx5_ib" >> /etc/pm/power.d/node-init-script.sh
                 echo "nodeadm init" >> /etc/pm/power.d/node-init-script.sh
+                echo "ifconfig ens2f0np0 up" >> /etc/pm/power.d/node-init-script.sh
+                echo "ifconfig ens2f1np1 up" >> /etc/pm/power.d/node-init-script.sh
+                echo "ifconfig enP1s12f0np0 up" >> /etc/pm/power.d/node-init-script.sh
+                echo "ifconfig enP1s12f1np1 up" >> /etc/pm/power.d/node-init-script.sh
                 chmod +x /etc/pm/power.d/node-init-script.sh
                 cat << EOF > /etc/systemd/system/node-init-script.service
                 [Unit]
