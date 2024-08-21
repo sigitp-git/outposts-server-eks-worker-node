@@ -78,3 +78,22 @@ data:
 #        Subsystem: 15b3:0022
 #        Kernel driver in use: mlx5_core
 # sh-5.2$ 
+#
+#
+#
+# [root@ip-10-0-52-219 ~]# lspci -nnk | grep 02:00.0 -A1
+# 0000:02:00.0 Ethernet controller [0200]: Mellanox Technologies MT2910 Family [ConnectX-7] [15b3:1021]
+#        Subsystem: Mellanox Technologies Device [15b3:0022]
+#
+# [root@ip-10-0-52-219 ~]# lspci -nnk | grep 02:00.0 -A2
+# 0000:02:00.0 Ethernet controller [0200]: Mellanox Technologies MT2910 Family [ConnectX-7] [15b3:1021]
+#        Subsystem: Mellanox Technologies Device [15b3:0022]
+#        Kernel driver in use: mlx5_core
+# [root@ip-10-0-52-219 ~]# 
+#        
+# [root@ip-10-0-52-219 ~]# lspci -nnk | grep 02:00.0 -A3
+# 0000:02:00.0 Ethernet controller [0200]: Mellanox Technologies MT2910 Family [ConnectX-7] [15b3:1021]
+#        Subsystem: Mellanox Technologies Device [15b3:0022]
+#        Kernel driver in use: mlx5_core
+#        Kernel modules: mlx5_core
+# [root@ip-10-0-52-219 ~]# 
