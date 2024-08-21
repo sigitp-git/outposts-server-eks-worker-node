@@ -44,8 +44,8 @@ ec2-user@ip-172-31-150-218:~$ ip addr add 192.168.59.205/24 brd 192.168.59.255 d
 ``` 
 ip link set dev ens7.59 up
 ```
- 
+NOTES: 
 To configure your network interfaces at the OS level and make the VLAN tagging changes persistent, refer to the following resources:
-·         If you are using Amazon Linux 2, see Configure your network interface using ec2-net-utils for Amazon Linux in the Amazon EC2 User Guide. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/best-practices-for-configuring-network-interfaces.html#ec2-net-utils
-·         If you are using Amazon Linux 2023, see Networking service in the Amazon Linux 2023 User Guide. https://docs.aws.amazon.com/linux/al2023/ug/networking-service.html 
+- If you are using Amazon Linux 2, see Configure your network interface using ec2-net-utils for Amazon Linux in the Amazon EC2 User Guide. https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/best-practices-for-configuring-network-interfaces.html#ec2-net-utils
+- If you are using Amazon Linux 2023, see Networking service in the Amazon Linux 2023 User Guide. https://docs.aws.amazon.com/linux/al2023/ug/networking-service.html 
  
