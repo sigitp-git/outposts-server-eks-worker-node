@@ -47,3 +47,19 @@ data:
             }
         ]
     }
+# parameter values
+#
+# sh-5.2$ lspci | grep ENA
+# 00:05.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+# 00:06.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+# 00:07.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
+#
+# sh-5.2$ lspci -nk | grep 00:06.0 -A2  
+# 00:06.0 0200: 1d0f:ec20
+#        Subsystem: 1d0f:ec20
+#        Kernel driver in use: ena
+# sh-5.2$ lspci -nk | grep 00:07.0 -A2                                                                                                                                                                                              
+# 00:07.0 0200: 1d0f:ec20
+#        Subsystem: 1d0f:ec20
+#        Kernel driver in use: vfio-pci
+# sh-5.2$ 
