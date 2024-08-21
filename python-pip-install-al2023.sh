@@ -1,3 +1,83 @@
+sh-5.2$ yum search pip
+Amazon Linux 2023 repository                                                                                                                                                                      6.3 MB/s |  26 MB     00:04    
+Amazon Linux 2023 Kernel Livepatch repository                                                                                                                                                      13 kB/s |  11 kB     00:00    
+================================================================================================== Name & Summary Matched: pip ===================================================================================================
+libpipeline.x86_64 : A pipeline manipulation library
+libpipeline-devel.x86_64 : Header files and libraries for pipeline manipulation library
+perl-IO-Pipely.noarch : Portably create pipe() or pipe-like handles, one way or another
+python3-pip-wheel.noarch : The pip wheel
+python3.11-pip-wheel.noarch : The pip wheel
+texlive-bagpipe.noarch : Support for typesetting bagpipe music
+texlive-bagpipe-doc.noarch : Documentation for bagpipe
+======================================================================================================= Name Matched: pip ========================================================================================================
+python3-apipkg.noarch : A Python namespace control and lazy-import mechanism
+python3-pip.noarch : A tool for installing and managing Python3 packages
+python3.11-pip.noarch : A tool for installing and managing Python packages
+====================================================================================================== Summary Matched: pip ======================================================================================================
+pv.x86_64 : A tool for monitoring the progress of data through a pipeline
+sh-5.2$ 
+
+sh-5.2$ sudo yum install python3-pip -y
+Last metadata expiration check: 1 day, 20:59:44 ago on Mon Aug 19 03:37:39 2024.
+Dependencies resolved.
+==================================================================================================================================================================================================================================
+ Package                                                  Architecture                                   Version                                                        Repository                                           Size
+==================================================================================================================================================================================================================================
+Installing:
+ python3-pip                                              noarch                                         21.3.1-2.amzn2023.0.7                                          amazonlinux                                         1.8 M
+Installing weak dependencies:
+ libxcrypt-compat                                         x86_64                                         4.4.33-7.amzn2023                                              amazonlinux                                          92 k
+
+Transaction Summary
+==================================================================================================================================================================================================================================
+Install  2 Packages
+
+Total download size: 1.9 M
+Installed size: 11 M
+Downloading Packages:
+(1/2): libxcrypt-compat-4.4.33-7.amzn2023.x86_64.rpm                                                                                                                                              245 kB/s |  92 kB     00:00    
+(2/2): python3-pip-21.3.1-2.amzn2023.0.7.noarch.rpm                                                                                                                                               2.3 MB/s | 1.8 MB     00:00    
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                                                             1.8 MB/s | 1.9 MB     00:01     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                                                                                                                                          1/1 
+  Installing       : libxcrypt-compat-4.4.33-7.amzn2023.x86_64                                                                                                                                                                1/2 
+  Installing       : python3-pip-21.3.1-2.amzn2023.0.7.noarch                                                                                                                                                                 2/2 
+  Running scriptlet: python3-pip-21.3.1-2.amzn2023.0.7.noarch                                                                                                                                                                 2/2 
+  Verifying        : libxcrypt-compat-4.4.33-7.amzn2023.x86_64                                                                                                                                                                1/2 
+  Verifying        : python3-pip-21.3.1-2.amzn2023.0.7.noarch                                                                                                                                                                 2/2 
+==================================================================================================================================================================================================================================
+WARNING:
+  A newer release of "Amazon Linux" is available.
+
+  Available Versions:
+
+  Version 2023.5.20240819:
+    Run the following command to upgrade to 2023.5.20240819:
+
+      dnf upgrade --releasever=2023.5.20240819
+
+    Release notes:
+     https://docs.aws.amazon.com/linux/al2023/release-notes/relnotes-2023.5.20240819.html
+
+==================================================================================================================================================================================================================================
+
+Installed:
+  libxcrypt-compat-4.4.33-7.amzn2023.x86_64                                                                        python3-pip-21.3.1-2.amzn2023.0.7.noarch                                                                       
+
+Complete!
+sh-5.2$ 
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
 [ec2-user@ip-172-31-156-11 ~]$ uname -r
 6.1.102-108.177.amzn2023.x86_64
 [ec2-user@ip-172-31-156-11 ~]$ sudo dnf search python3.11
