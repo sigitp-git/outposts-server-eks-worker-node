@@ -4,7 +4,7 @@ LNI on the host OS will be seen as another Linux interface, for example this is 
 ec2-user@ip-172-31-150-218:~$ lspci | grep ENA
 00:05.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
 00:06.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
-00:07.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)  LNI
+00:07.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA) ===> LNI, attached as index 2
  
 ec2-user@ip-172-31-150-218:~$ ls -l /sys/class/net | awk '{print $9, $10, $11}' | grep "00:07.0"
 ens7 -> ../../devices/pci0000:00/0000:00:07.0/net/ens7
