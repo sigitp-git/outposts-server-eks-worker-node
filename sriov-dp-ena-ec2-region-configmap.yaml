@@ -47,7 +47,8 @@ data:
             }
         ]
     }
-# parameter values
+# parameter values must refer to VF, not PF
+# create VF first to get the parameters for this configmap
 #
 # sh-5.2$ lspci | grep ENA
 # 00:05.0 Ethernet controller: Amazon.com, Inc. Elastic Network Adapter (ENA)
