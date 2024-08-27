@@ -299,3 +299,7 @@ Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-62-122.ec2.intern
   }
 }
 Admin:~/environment $ 
+
+Admin:~/environment $ kubectl get pod pod1-dr1-net1-vlan100 -o jsonpath="{ .status.qosClass }"
+Guaranteed
+Admin:~/environment $ 
