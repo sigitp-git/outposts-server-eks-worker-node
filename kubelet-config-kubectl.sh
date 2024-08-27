@@ -3,6 +3,15 @@ NAME                          STATUS   ROLES    AGE     VERSION
 ip-10-0-57-154.ec2.internal   Ready    <none>   3h32m   v1.30.2-eks-1552ad0
 ip-10-0-62-122.ec2.internal   Ready    <none>   3h27m   v1.30.2-eks-1552ad0
 
+Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-57-154.ec2.internal/proxy/configz" | jq -r '.kubeletconfig.cpuManagerPolicy'
+static
+Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-57-154.ec2.internal/proxy/configz" | jq -r '.kubeletconfig.topologyManagerPolicy'
+single-numa-node
+
+Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-62-122.ec2.internal/proxy/configz" | jq -r '.kubeletconfig.cpuManagerPolicy'         
+static
+Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-62-122.ec2.internal/proxy/configz" | jq -r '.kubeletconfig.topologyManagerPolicy'
+single-numa-node
 
 Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-57-154.ec2.internal/proxy/configz" | jq                                              
 {
