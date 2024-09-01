@@ -300,6 +300,33 @@ Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-62-122.ec2.intern
 }
 Admin:~/environment $ 
 
+## pod QoS class
 Admin:~/environment $ kubectl get pod pod1-dr1-net1-vlan100 -o jsonpath="{ .status.qosClass }"
 Guaranteed
 Admin:~/environment $ 
+
+## worker node pod cpu bind
+sh-5.2$ sudo cat /var/lib/kubelet/cpu_manager_state | jq                                                                                     
+{
+  "policyName": "static",
+  "defaultCpuSet": "0,2-47,50-95,97-143,145-191",
+  "entries": {
+    "07348c4c-8d90-4303-a162-b6c2040fd184": {
+      "ubuntu-frr": "48"
+    },
+    "2b7f6116-12e4-4453-9e60-d28bc2f9ad09": {
+      "ubuntu-netutils": "144"
+    },
+    "30c78fd5-4bbd-41a8-ad05-655f4b4eeb9b": {
+      "ubuntu-netutils": "96"
+    },
+    "8fafa644-09a4-4342-8ad5-c01b64b75daf": {
+      "ubuntu-netutils": "49"
+    },
+    "a8a42ad9-e6ac-45c3-99ec-a8a623e037d2": {
+      "ubuntu-netutils": "1"
+    }
+  },
+  "checksum": 1885545006
+}
+sh-5.2$ 
