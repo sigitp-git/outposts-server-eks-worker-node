@@ -13,7 +13,8 @@ static
 Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-60-7.ec2.internal/proxy/configz" | jq -r '.kubeletconfig.topologyManagerPolicy'
 single-numa-node
 
-Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-57-154.ec2.internal/proxy/configz" | jq                                              
+## the full kubelete config
+Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-48-35.ec2.internal/proxy/configz" | jq
 {
   "kubeletconfig": {
     "enableServer": true,
@@ -127,7 +128,7 @@ Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-57-154.ec2.intern
       "pods"
     ],
     "volumePluginDir": "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/",
-    "providerID": "aws:///us-east-1a/i-0d3ba9c35f51be349",
+    "providerID": "aws:///us-east-1a/i-067d4f757ff3b47d7",
     "logging": {
       "format": "text",
       "flushFrequency": "5s",
@@ -154,10 +155,8 @@ Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-57-154.ec2.intern
     "containerRuntimeEndpoint": "unix:///run/containerd/containerd.sock"
   }
 }
-Admin:~/environment $ 
 
-
-Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-62-122.ec2.internal/proxy/configz" | jq                                             
+Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-60-7.ec2.internal/proxy/configz" | jq
 {
   "kubeletconfig": {
     "enableServer": true,
@@ -271,7 +270,7 @@ Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-62-122.ec2.intern
       "pods"
     ],
     "volumePluginDir": "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/",
-    "providerID": "aws:///us-east-1a/i-077f4082abbffb441",
+    "providerID": "aws:///us-east-1a/i-022a36dec9c8e99d6",
     "logging": {
       "format": "text",
       "flushFrequency": "5s",
