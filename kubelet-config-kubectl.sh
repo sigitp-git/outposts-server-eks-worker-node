@@ -348,6 +348,7 @@ sh-5.2$ sudo cat /var/lib/kubelet/cpu_manager_state | jq
 }
 sh-5.2$ 
 
+## NIC IRQ Affinity: https://enterprise-support.nvidia.com/s/article/what-is-irq-affinity-x
 ## cpu interrupts id for the NIC's PCI address
 ### VF
 sh-5.2$ cat /proc/interrupts | grep 0000:02:00.2 | grep async | awk '{print $1}'
