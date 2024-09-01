@@ -347,3 +347,19 @@ sh-5.2$ sudo cat /var/lib/kubelet/cpu_manager_state | jq
   "checksum": 1885545006
 }
 sh-5.2$ 
+
+## cpu interrupts id for the NIC's PCI address
+### VF
+sh-5.2$ cat /proc/interrupts | grep 0000:02:00.2 | grep async | awk '{print $1}'
+788:
+### PF
+sh-5.2$ cat /proc/interrupts | grep 0000:02:00.0 | grep async | awk '{print $1}'
+518:
+sh-5.2$ 
+
+## relate cpu interrupt id to the CPU
+sh-5.2$ cat /proc/irq/518/smp_affinity_list
+28
+sh-5.2$ cat /proc/irq/788/smp_affinity_list
+118
+sh-5.2$ 
