@@ -8,6 +8,7 @@ ip-10-0-60-7.ec2.internal    Ready    <none>   4d14h   v1.30.2-eks-1552ad0
 --node-labels=node.longhorn.io/create-default-disk=true,storage=longhorn,is_worker=true --topology-manager-policy=single-numa-node --cpu-manager-policy=static
 
 ## kubelet extra args for kube-reserved and system-reserved
+## https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#:~:text=%2D%2Denforce%2Dnode%2Dallocatable%20strings%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0Default%3A%20pods
 --enforce-node-allocatable=[pods][,][kube-reserved][,][system-reserved]
 
 ## kubelet extra args for kube-reserved and system-reserved
