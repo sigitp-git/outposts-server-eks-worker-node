@@ -1,8 +1,10 @@
+## the nodes
 Admin:~/environment $ kubectl get node
 NAME                         STATUS   ROLES    AGE     VERSION
 ip-10-0-48-35.ec2.internal   Ready    <none>   4d13h   v1.30.2-eks-1552ad0
 ip-10-0-60-7.ec2.internal    Ready    <none>   4d14h   v1.30.2-eks-1552ad0
 
+## cpu manager policy static, with topology manager single-numa-node
 Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-48-35.ec2.internal/proxy/configz" | jq -r '.kubeletconfig.cpuManagerPolicy'
 static
 Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-48-35.ec2.internal/proxy/configz" | jq -r '.kubeletconfig.topologyManagerPolicy'
