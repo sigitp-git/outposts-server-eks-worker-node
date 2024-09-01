@@ -11,7 +11,13 @@ ip-10-0-60-7.ec2.internal    Ready    <none>   4d14h   v1.30.2-eks-1552ad0
 ## https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#:~:text=%2D%2Denforce%2Dnode%2Dallocatable%20strings%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0Default%3A%20pods
 --enforce-node-allocatable=[pods][,][kube-reserved][,][system-reserved]
 
-## kubelet extra args for kube-reserved and system-reserved
+## kubelet extra args for reserved-cpus
+## https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/#:~:text=%2D%2Dreserved%2Dcpus%20string
+--reserved-cpus string
+### A comma-separated list of CPUs or CPU ranges that are reserved for system and kubernetes usage. 
+### This specific list will supersede cpu counts in --system-reserved and --kube-reserved. 
+### (DEPRECATED: This parameter should be set via the config file specified by the kubelet's --config flag. See kubelet-config-file for more information.)
+### https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/
 
 ## cpu manager policy static, with topology manager single-numa-node
 Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-48-35.ec2.internal/proxy/configz" | jq -r '.kubeletconfig.cpuManagerPolicy'
