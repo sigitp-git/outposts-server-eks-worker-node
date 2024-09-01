@@ -4,6 +4,14 @@ NAME                         STATUS   ROLES    AGE     VERSION
 ip-10-0-48-35.ec2.internal   Ready    <none>   4d13h   v1.30.2-eks-1552ad0
 ip-10-0-60-7.ec2.internal    Ready    <none>   4d14h   v1.30.2-eks-1552ad0
 
+## kubelet extra args
+--node-labels=node.longhorn.io/create-default-disk=true,storage=longhorn,is_worker=true --topology-manager-policy=single-numa-node --cpu-manager-policy=static
+
+## kubelet extra args for kube-reserved and system-reserved
+--enforce-node-allocatable=[pods][,][kube-reserved][,][system-reserved]
+
+## kubelet extra args for kube-reserved and system-reserved
+
 ## cpu manager policy static, with topology manager single-numa-node
 Admin:~/environment $ kubectl get --raw "/api/v1/nodes/ip-10-0-48-35.ec2.internal/proxy/configz" | jq -r '.kubeletconfig.cpuManagerPolicy'
 static
