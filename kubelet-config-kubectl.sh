@@ -305,7 +305,8 @@ Admin:~/environment $ kubectl get pod pod1-dr1-net1-vlan100 -o jsonpath="{ .stat
 Guaranteed
 Admin:~/environment $ 
 
-## worker node pod cpu bind
+## worker node pod cpu bind, these pods request integer cpus, and match the limit for Guaranteed QoS
+## numa placement based on SRIOV-VF+PF being selected on the pod definition yaml
 sh-5.2$ sudo cat /var/lib/kubelet/cpu_manager_state | jq                                                                                     
 {
   "policyName": "static",
