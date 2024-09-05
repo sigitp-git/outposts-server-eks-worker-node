@@ -35,5 +35,7 @@ Admin:~/environment $
 
 
 # port forward the endpoint IP and port via SSH to worker node
-ssh -i file.pem -L 8000:172.31.149.220:8000 ec2-user@ec2-184-72-87-109.compute-1.amazonaws.com
+# the SSH is executed from your  local workstation, 
+# where SSH destination is the same compute node where it can reach the Endpoints listed above
 ssh -i file.pem -L 8000:172.31.151.158:8000 ec2-user@ec2-34-229-218-164.compute-1.amazonaws.com
+ssh -i file.pem -L 8000:172.31.152.193:8000 ec2-user@ec2-184-72-87-109.compute-1.amazonaws.com
