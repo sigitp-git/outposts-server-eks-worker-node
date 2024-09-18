@@ -1,6 +1,6 @@
 ## Install ZSSH on Ubuntu
 
-## Install ZSSH on Amazon Linux 2023
+## Install ZSSH on Amazon Linux 2023 (AL2023)
 
 ## Install LRZSZ, https://www.ohse.de/uwe/software/lrzsz.html on AL2023
 
@@ -8,4 +8,5 @@
 [localhost]$ zssh -i file.pem ec2-user@remote-ip-address
 [remote ~]$ ls
 tobetransferredtolocalhost
-[ec2-user@ip-172-31-240-179 ~]$ 
+[remote ~]$ lsz tobetransferredtolocalhost
+{on Mac, enter escape sequence: Ctrl+Shift+2}
