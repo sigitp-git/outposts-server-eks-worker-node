@@ -1,8 +1,10 @@
 ## Install ZSSH on Ubuntu
 `sudo apt install zssh`
 
-## Install ZSSH on Amazon Linux 2023 (AL2023)
+## Install LRZSZ on Ubuntu
+`sudo apt install lrzsz`
 
+## Install ZSSH on Amazon Linux 2023 (AL2023)
 
 ## Install LRZSZ, https://www.ohse.de/uwe/software/lrzsz.html on AL2023
 Needs GCC
