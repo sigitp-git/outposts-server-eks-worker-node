@@ -6,7 +6,9 @@
 
 ## Install ZSSH on Amazon Linux 2023 (AL2023)
 
+
 ## Install LRZSZ, https://www.ohse.de/uwe/software/lrzsz.html on AL2023
+https://github.com/jnavila/lrzsz/blob/master/INSTALL
 Needs GCC
 ```
 sudo yum groupinstall "Development Tools"
