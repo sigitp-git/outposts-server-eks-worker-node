@@ -101,7 +101,7 @@ Parameters:
 
   KubeletExtraArguments:
     Type: String
-    Default:  "--node-labels=node.longhorn.io/create-default-disk=true,storage=longhorn,is_worker=true --topology-manager-policy=single-numa-node --cpu-manager-policy=static"
+    Default:  "--node-labels=node.longhorn.io/create-default-disk=true,storage=longhorn,is_worker=true,feature.node.kubernetes.io/network-sriov.capable=true --topology-manager-policy=single-numa-node --cpu-manager-policy=static"
     Description: "Arguments to pass to the kubelet bootstrap script."
 
   EksApiServerEndpoint:
