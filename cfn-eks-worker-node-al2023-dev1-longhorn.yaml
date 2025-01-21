@@ -91,7 +91,7 @@ Parameters:
 
   NodeInstanceType:
     Type: String
-    Default: m6id.metal
+    Default: bmn-cx2.metal-48xl
     Description: EC2 instance type for the node instances (Please use instance-store type only such as m6id, c6id and so on, and use bigger than 4xl size to have Longhorn at dedicated NVMe storage than root disk)
 
   LonghornVolumeDevice:
