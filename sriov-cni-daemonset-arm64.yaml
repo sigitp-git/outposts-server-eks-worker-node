@@ -18,8 +18,6 @@ spec:
         tier: node
         app: sriov-cni
     spec:
-      nodeSelector:
-        kubernetes.io/arch: arm64
       tolerations:
       - key: node-role.kubernetes.io/master
         operator: Exists
@@ -29,7 +27,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: kube-sriov-cni
-        image: ghcr.io/k8snetworkplumbingwg/sriov-cni:v2.9.0-arm64
+        image: ghcr.io/k8snetworkplumbingwg/sriov-cni:latest-arm64
         imagePullPolicy: IfNotPresent
         securityContext:
           allowPrivilegeEscalation: false
