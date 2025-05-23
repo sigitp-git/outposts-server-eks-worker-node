@@ -30,3 +30,94 @@ mft-4.30.1-113-x86_64-rpm/install.sh
 mft-4.30.1-113-x86_64-rpm/old-mft-uninstall.sh
 mft-4.30.1-113-x86_64-rpm/uninstall.sh
 [root@ip-10-0-58-16 ~]#
+
+[root@ip-10-0-58-16 ~]# cd mft-4.30.1-113-x86_64-rpm
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# ls
+
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# yum install gcc rpm-build make -y
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# yum install elfutils-libelf-devel perl -y
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# ./install.sh
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# yum install kernel-devel-6.1.132-147.221.amzn2023.x86_64
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# ./install.sh
+-I- Removing any old MFT file if exists...
+-I- Building the MFT kernel binary RPM...
+-I- Installing the MFT RPMs...
+Verifying...                          ################################# [100%]
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:kernel-mft-4.30.1-6.1.132_147.221################################# [100%]
+Verifying...                          ################################# [100%]
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:mft-4.30.1-113                   ################################# [100%]
+Verifying...                          ################################# [100%]
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:mft-autocomplete-4.30.1-113      ################################# [100%]
+-I- In order to start mst, please run "mst start".
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
+
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# lspci | grep MT2910
+0000:05:00.0 Ethernet controller: Mellanox Technologies MT2910 Family [ConnectX-7]
+0000:05:00.1 Ethernet controller: Mellanox Technologies MT2910 Family [ConnectX-7]
+0001:05:00.0 Ethernet controller: Mellanox Technologies MT2910 Family [ConnectX-7]
+0001:05:00.1 Ethernet controller: Mellanox Technologies MT2910 Family [ConnectX-7]
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
+
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# mlxconfig -d 05:00.0 q | grep NUM_OF_VFS
+        NUM_OF_VFS                                  16
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
+
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# mlxconfig -d 05:00.0 set NUM_OF_VFS=127
+
+Device #1:
+----------
+
+Device type:        ConnectX7
+Name:               MCX755106AS-HEA_Ax
+Description:        NVIDIA ConnectX-7 HHHL Adapter Card; 200GbE (default mode) / NDR200 IB; Dual-port QSFP112; PCIe 5.0 x16 with x16 PCIe extension option; Crypto Disabled; Secure Boot Enabled
+Device:             05:00.0
+
+Configurations:                                          Next Boot       New
+        NUM_OF_VFS                                  16                   127
+
+ Apply new Configuration? (y/n) [n] : y
+Applying... Done!
+-I- Please reboot machine to load new configurations.
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
+
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# mlxconfig -d 05:00.1 q | grep NUM_OF_VFS
+        NUM_OF_VFS                                  127
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
+
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# mlxconfig -d 0000:05:00.0 q | grep NUM_OF_VFS
+        NUM_OF_VFS                                  127
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# mlxconfig -d 0000:05:00.1 q | grep NUM_OF_VFS
+        NUM_OF_VFS                                  127
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
+
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# mlxconfig -d 0001:05:00.0 q | grep NUM_OF_VFS
+        NUM_OF_VFS                                  16
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
+
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# mlxconfig -d 0001:05:00.0 set NUM_OF_VFS=127
+
+Device #1:
+----------
+
+Device type:        ConnectX7
+Name:               MCX755106AS-HEA_Ax
+Description:        NVIDIA ConnectX-7 HHHL Adapter Card; 200GbE (default mode) / NDR200 IB; Dual-port QSFP112; PCIe 5.0 x16 with x16 PCIe extension option; Crypto Disabled; Secure Boot Enabled
+Device:             0001:05:00.0
+
+Configurations:                                          Next Boot       New
+        NUM_OF_VFS                                  16                   127
+
+ Apply new Configuration? (y/n) [n] : y
+Applying... Done!
+-I- Please reboot machine to load new configurations.
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
+
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# mlxconfig -d 0001:05:00.1 q | grep NUM_OF_VFS
+        NUM_OF_VFS                                  127
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
