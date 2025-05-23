@@ -1,3 +1,5 @@
+## mlxconfig is part of mft: https://network.nvidia.com/products/adapter-software/firmware-tools/
+
 [root@ip-10-0-58-16 ~]# wget https://www.mellanox.com/downloads/MFT/mft-4.30.1-113-x86_64-rpm.tgz
 --2025-05-23 17:48:30--  https://www.mellanox.com/downloads/MFT/mft-4.30.1-113-x86_64-rpm.tgz
 Resolving www.mellanox.com (www.mellanox.com)... 23.212.249.207, 23.212.249.213
