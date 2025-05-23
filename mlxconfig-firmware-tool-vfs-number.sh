@@ -120,4 +120,4 @@ Applying... Done!
 
 [root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# mlxconfig -d 0001:05:00.1 q | grep NUM_OF_VFS
         NUM_OF_VFS                                  127
-[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]#
+[root@ip-10-0-58-16 mft-4.30.1-113-x86_64-rpm]# sudo shutdown -r now
